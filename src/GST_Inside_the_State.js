@@ -1,155 +1,220 @@
-import {createRef, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 import './App.css'
-
+import PreviewSection from './PreviewSection';
 const GST_Inside_the_State=()=>{
-      const [d,setd]=useState([{}]);
-      const [sellerdetails,setsellerdetails]=useState([{}]);
-      const [shipingdetails,setshipingdetails]=useState([{}]);
-      const [buyerdetails,setbuyerdetails]=useState([{}]);
-      
-      const ProductName=(e,size)=>{
-        setd(()=>d.map((list,index)=>(index===size?{...list,id:size+1,name:e.target.value}:list)));
+      const [d,setd]=useState([{quantity:null,rate:null}]);
+      const [sellerdetails,setsellerdetails]=useState([{company_name:"",address_Line1:"",address_Line2:"",address_Line3:"",city:"",state:"",zipcode:""}]);
+      const [shipingdetails,setshipingdetails]=useState([{company_name:"",address_Line1:"",address_Line2:"",address_Line3:"",city:"",state:"",zipcode:""}]);
+      const [buyerdetails,setbuyerdetails]=useState([{company_name:"",address_Line1:"",address_Line2:"",address_Line3:"",city:"",state:"",zipcode:""}]);
+      const [checkvalue,setcheckvalue]=useState(false);
+      const [otherdeatils,setotherdetails]=useState([{}]);
+      const [bankdeatils,setbankdetails]=useState([{}]);
+      const [signature,setsignature]=useState(null);
+      const [terms,setterms]=useState([{}]);
+      const HandleChange=(e,size)=>{
+        setd(()=>d.map((list,index)=>(index===size?{...list,id:size+1,[e.target.name]:e.target.value}:list)));
     };
-    const ListHsn=(e,size)=>{
-        setd(()=>d.map((list,index)=>(index===size?{...list,hsn:e.target.value}:list)));
-    }
-    
-    const ListQuantity=(e,size)=>{
-        setd(()=>d.map((list,index)=>(index===size?{...list,quantity:e.target.value}:list)));
-    }
-    
-    const ListRate=(e,size)=>{
-        setd(()=>d.map((list,index)=>(index===size?{...list,rate:e.target.value}:list)));
-    }
     
     const AddListCount=(e)=>{
       e.preventDefault();
-      setd([...d,{}]);
+      setd([...d,{quantity:null,rate:null}]);
     }
+
+    useEffect(()=>{
+        const arr=[...d]
+        arr.map((list,index)=>(list.id=index+1));
+        setd(arr);
+    },[d])
+
+    useEffect(()=>{
+        if(checkvalue==true){
+            setbuyerdetails(shipingdetails);
+        }
+    },[buyerdetails])
+
+    useEffect(()=>{
+        if(checkvalue==true){
+            setbuyerdetails(shipingdetails);
+        }
+    },[shipingdetails])
+
+    const RemoveList=(e)=>{
+        e.preventDefault();
+        var confirm=window.confirm("Please confirm if you want to delete this item")
+        if(confirm){
+        const arr=[...d];
+        arr.splice(e.target.id,1);
+        setd(arr);
+        }
+        }
+    
+    const CheckIn=(e)=>{
+        if(e.target.checked===true){ 
+        setcheckvalue(true);
+        setbuyerdetails([shipingdetails]);
+        }
+        else{
+            setcheckvalue(false);
+            setbuyerdetails([{company_name:"",address_Line1:"",address_Line2:"",address_Line3:"",city:"",state:"",zipcode:""}]);
+        }
+    }
+
       return(
         <>
-        <div style={{width:"49%", height:"100vh",border:"2px solid red",position:"fixed",left:"0" }}>
-              <h4 style={{textAlign:"center"}}>Tax Invoice</h4>
-              <table style={{border:"1px solid black",height:"50%"}}>
-              <tr>
-              <td style={{padding:"0", lineHeight:"2px",width:"50vh",borderBottom:"1px solid black"}}>
-              <h3 id="company_name">{sellerdetails[0].company_name}</h3>
-              <p id="address1">{sellerdetails[0].address_Line1}</p>
-              <p id="address2">{sellerdetails[0].address_Line2}</p>
-              <p id="address3">{sellerdetails[0].address_Line3}</p>
-              <p id="city">{sellerdetails[0].city},{sellerdetails[0].state}-{sellerdetails[0].zipcode}</p>
-              </td>
-              </tr>
-              <tr>
-              <td style={{padding:"0", lineHeight:"2px",width:"50vh",borderBottom:"1px solid black"}}>
-              <p style={{marginTop:"0"}}>Consignee (Ship to)</p>
-              <h3 id="shippingcompany_name">{shipingdetails[0].company_name}</h3>
-              <p id="shippingaddress1">{shipingdetails[0].address_Line1}</p>
-              <p id="shippingaddress2">{shipingdetails[0].address_Line2}</p>
-              <p id="shippingaddress3">{shipingdetails[0].address_Line3}</p>
-              <p id="shippingcity">{shipingdetails[0].city},{shipingdetails[0].state}-{shipingdetails[0].zipcode}</p>
-                  </td>
-              </tr>
-              <tr>
-              <td style={{padding:"0", lineHeight:"2px",width:"50vh"}}>
-              <p style={{marginTop:"0"}}>Buyer (Billed to)</p>
-              <h3 id="buyercompany_name">{buyerdetails[0].company_name}</h3>
-              <p id="buyeraddress1">{buyerdetails[0].address_Line1}</p>
-              <p id="buyeraddress2">{buyerdetails[0].address_Line2}</p>
-              <p id="buyeraddress3">{buyerdetails[0].address_Line3}</p>
-              <p id="buyercity">{buyerdetails[0].city},{buyerdetails[0].state}-{buyerdetails[0].zipcode}</p>
-                  </td>
-              </tr>
-              </table>
-              <table style={{borderCollapse: "collapse",border:"1px solid black",width:"100%",marginTop:"20px"}}>
-                  <thead>
-                  <tr style={{height:"50px"}}>
-                      <th style={{border:"1px solid black",width:"2%"}}>SI No.</th>
-                      <th style={{border:"1px solid black", width:"40%"}}>Description of Goods</th>
-                      <th style={{border:"1px solid black",width:"20%"}}>HSN/SAC</th>
-                      <th style={{border:"1px solid black",width:"10%"}}>Quantity</th>
-                      <th style={{border:"1px solid black",width:"8%"}}>Rate</th>
-                      <th style={{border:"1px solid black",width:"20%"}}>Total</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-              {d.map((list,index)=>(
-                  
-                  <tr key={index}>
-                  <td>{list?.id}</td>
-                  <td id={"previewname"+index}>{list?.name}</td>
-                  <td id={"previewhsn"+index}>{list?.hsn}</td>
-                  <td id={"previewquantity"+index}>{list?.quantity}</td>
-                  <td id={"previewrate"+index}>{list?.rate}</td>
-                  <td>{(list?.quantity)*(list?.rate)}</td>
-                  </tr>
-              ))}
-              </tbody>
-              </table>
-              </div>
+        <PreviewSection d={d} sellerdetails={sellerdetails} buyerdetails={buyerdetails} shipingdetails={shipingdetails} otherdeatils={otherdeatils} bankdeatils={bankdeatils} signature={signature} terms={terms}/>
+   
+   
     {/* ----------------------------------Preview Section------------------------------------- */}
     
-    
-    <div style={{width:"49%" ,border:"2px solid black",position:"absolute",right:"0"}}>
+    <p id="idid"></p>
+    <div style={{width:"50%" ,border:"2px solid black",position:"absolute",right:"0"}} class="form">
         <form style={{padding:"20px"}}>
+            <div style={{padding:"15px",borderRadius:"10px", backgroundColor:"transparent",boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)"}}>
             <p><b>Seller</b></p> <hr style={{position:"relative" ,top:"-25px",width:"80vh",marginTop:0,marginLeft:"7vh"}}/>
-            <lable>Company Name  </lable><input id="cm"  value={sellerdetails[0].company_name} onChange={(e)=>setsellerdetails(sellerdetails.map((list,index)=>({...list,company_name:e.target.value})))} />
+            <lable>Company Name   <span class="redstar">*</span>  </lable><input id="scm"  value={sellerdetails[0]?.company_name} onChange={(e)=>setsellerdetails(sellerdetails.map((list,index)=>({...list,company_name:e.target.value})))} />
             <table style={{width:"100%",padding:"0px"}}>
-            <tr><td><lable> Address Line 1</lable></td><td><input type="text" id="ad1" value={sellerdetails[0].address_Line1} onChange={(e)=>setsellerdetails(sellerdetails.map((list,index)=>({...list,address_Line1:e.target.value})))}/></td>
-            <td><lable> Address Line 2 </lable></td><td><input type="text" id="ad2" value={sellerdetails[0].address_Line2} onChange={(e)=>setsellerdetails(sellerdetails.map((list,index)=>({...list,address_Line2:e.target.value})))}/></td></tr>
-            <tr><td><lable> Address Line 3 </lable></td><td> <input type="text" id="ad3" value={sellerdetails[0].address_Line3} onChange={(e)=>setsellerdetails(sellerdetails.map((list,index)=>({...list,address_Line3:e.target.value})))}/></td>
-            <td><lable> City </lable></td><td><input type="text" id="city" value={sellerdetails[0].city} onChange={(e)=>setsellerdetails(sellerdetails.map((list,index)=>({...list,city:e.target.value})))}/></td></tr>
-            <tr><td><lable> State </lable></td><td><input type="text" id="state" value={sellerdetails[0].state} onChange={(e)=>setsellerdetails(sellerdetails.map((list,index)=>({...list,state:e.target.value})))}/></td>
-            <td><lable>Zip Code</lable></td><td><input type="text" id="zipcode" value={sellerdetails[0].zipcode} onChange={(e)=>setsellerdetails(sellerdetails.map((list,index)=>({...list,zipcode:e.target.value})))}/></td></tr>
+            <tr><td><lable> Address Line 1 <span class="redstar">*</span></lable></td><td><input type="text" id="sad1" value={sellerdetails[0]?.address_Line1} onChange={(e)=>setsellerdetails(sellerdetails.map((list,index)=>({...list,address_Line1:e.target.value})))}/></td>
+            <td><lable> Address Line 2 <span class="redstar">*</span></lable></td><td><input type="text" id="sad2" value={sellerdetails[0]?.address_Line2} onChange={(e)=>setsellerdetails(sellerdetails.map((list,index)=>({...list,address_Line2:e.target.value})))}/></td></tr>
+            <tr><td><lable> Address Line 3 </lable></td><td> <input type="text" id="sad3" value={sellerdetails[0]?.address_Line3} onChange={(e)=>setsellerdetails(sellerdetails.map((list,index)=>({...list,address_Line3:e.target.value})))}/></td>
+            <td><lable> City <span class="redstar">*</span></lable></td><td><input type="text" id="scity" value={sellerdetails[0]?.city} onChange={(e)=>setsellerdetails(sellerdetails.map((list,index)=>({...list,city:e.target.value})))}/></td></tr>
+            <tr><td><lable> State <span class="redstar">*</span></lable></td><td><input type="text" id="sstate" value={sellerdetails[0]?.state} onChange={(e)=>setsellerdetails(sellerdetails.map((list,index)=>({...list,state:e.target.value})))}/></td>
+            <td><lable>Zip Code <span class="redstar">*</span></lable></td><td><input type="text" id="szipcode" value={sellerdetails[0]?.zipcode} onChange={(e)=>setsellerdetails(sellerdetails.map((list,index)=>({...list,zipcode:e.target.value})))}/></td></tr>
             </table>
+            </div>
+            <div style={{padding:"15px",borderRadius:"10px", backgroundColor:"transparent",boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",marginTop:"30px"}}>
             <p><b>Ship To</b></p> <hr style={{position:"relative" ,top:"-25px",width:"78vh",marginTop:0,marginLeft:"9vh"}}/>
-            <lable>Company Name  </lable><input id="cm"  value={shipingdetails[0].company_name} onChange={(e)=>setshipingdetails(shipingdetails.map((list,index)=>({...list,company_name:e.target.value})))} />
+            <lable>Company Name   <span class="redstar">*</span>  </lable><input id="scm"  value={shipingdetails[0]?.company_name} onChange={(e)=>setshipingdetails(shipingdetails.map((list,index)=>({...list,company_name:e.target.value})))} />
             <table style={{width:"100%",padding:"0px"}}>
-            <tr><td><lable> Address Line 1</lable></td><td><input type="text" id="ad1" value={shipingdetails[0].address_Line1} onChange={(e)=>setshipingdetails(shipingdetails.map((list,index)=>({...list,address_Line1:e.target.value})))}/></td>
-            <td><lable> Address Line 2 </lable></td><td><input type="text" id="ad2" value={shipingdetails[0].address_Line2} onChange={(e)=>setshipingdetails(shipingdetails.map((list,index)=>({...list,address_Line2:e.target.value})))}/></td></tr>
-            <tr><td><lable> Address Line 3 </lable></td><td> <input type="text" id="ad3" value={shipingdetails[0].address_Line3} onChange={(e)=>setshipingdetails(shipingdetails.map((list,index)=>({...list,address_Line3:e.target.value})))}/></td>
-            <td><lable> City </lable></td><td><input type="text" id="city" value={shipingdetails[0].city} onChange={(e)=>setshipingdetails(shipingdetails.map((list,index)=>({...list,city:e.target.value})))}/></td></tr>
-            <tr><td><lable> State </lable></td><td><input type="text" id="state" value={shipingdetails[0].state} onChange={(e)=>setshipingdetails(shipingdetails.map((list,index)=>({...list,state:e.target.value})))}/></td>
-            <td><lable>Zip Code</lable></td><td><input type="text" id="zipcode" value={shipingdetails[0].zipcode} onChange={(e)=>setshipingdetails(shipingdetails.map((list,index)=>({...list,zipcode:e.target.value})))}/></td></tr>
+            <tr><td><lable> Address Line 1 <span class="redstar">*</span></lable></td><td><input type="text" id="sad1" value={shipingdetails[0]?.address_Line1} onChange={(e)=>setshipingdetails(shipingdetails.map((list,index)=>({...list,address_Line1:e.target.value})))}/></td>
+            <td><lable> Address Line 2 <span class="redstar">*</span></lable></td><td><input type="text" id="sad2" value={shipingdetails[0]?.address_Line2}  onChange={(e)=>setshipingdetails(shipingdetails.map((list,index)=>({...list,address_Line2:e.target.value})))}/></td></tr>
+            <tr><td><lable> Address Line 3 </lable></td><td> <input type="text" id="ad3" value={shipingdetails[0]?.address_Line3} onChange={(e)=>setshipingdetails(shipingdetails.map((list,index)=>({...list,address_Line3:e.target.value})))}/></td>
+            <td><lable> City <span class="redstar">*</span></lable></td><td><input type="text" id="scity" value={shipingdetails[0].city} onChange={(e)=>setshipingdetails(shipingdetails.map((list,index)=>({...list,city:e.target.value})))}/></td></tr>
+            <tr><td><lable> State <span class="redstar">*</span></lable></td><td><input type="text" id="sstate" value={shipingdetails[0]?.state} onChange={(e)=>setshipingdetails(shipingdetails.map((list,index)=>({...list,state:e.target.value})))}/></td>
+            <td><lable>Zip Code <span class="redstar">*</span></lable></td><td><input type="text" id="szipcode" value={shipingdetails[0]?.zipcode} onChange={(e)=>setshipingdetails(shipingdetails.map((list,index)=>({...list,zipcode:e.target.value})))}/></td></tr>
             </table>
-    
+            </div>
+            <div style={{padding:"15px",borderRadius:"10px", backgroundColor:"transparent",boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",marginTop:"30px"}}>
             <p><b>Buyer</b></p> <hr style={{position:"relative" ,top:"-25px",width:"80vh",marginTop:0,marginLeft:"7vh"}}/>
-            <lable>Company Name  </lable><input id="cm"  value={buyerdetails[0].company_name} onChange={(e)=>setbuyerdetails(buyerdetails.map((list,index)=>({...list,company_name:e.target.value})))} />
+            <div style={{marginBottom:"15px"}}><lable>Same details in ship to <input style={{margin:"0",verticalAlign:"middle"}}type="checkbox" checked={checkvalue} onClick={(e)=>CheckIn(e)} id="check"></input></lable></div>
+            <lable>Company Name   <span class="redstar">*</span>  </lable><input id="bcm"  value={buyerdetails[0]?.company_name} disabled={checkvalue} onChange={(e)=>setbuyerdetails(buyerdetails.map((list,index)=>({...list,company_name:e.target.value})))} />
             <table style={{width:"100%",padding:"0px"}}>
-            <tr><td><lable> Address Line 1</lable></td><td><input type="text" id="ad1" value={buyerdetails[0].address_Line1} onChange={(e)=>setbuyerdetails(buyerdetails.map((list,index)=>({...list,address_Line1:e.target.value})))}/></td>
-            <td><lable> Address Line 2 </lable></td><td><input type="text" id="ad2" value={buyerdetails[0].address_Line2} onChange={(e)=>setbuyerdetails(buyerdetails.map((list,index)=>({...list,address_Line2:e.target.value})))}/></td></tr>
-            <tr><td><lable> Address Line 3 </lable></td><td> <input type="text" id="ad3" value={buyerdetails[0].address_Line3} onChange={(e)=>setbuyerdetails(buyerdetails.map((list,index)=>({...list,address_Line3:e.target.value})))}/></td>
-            <td><lable> City </lable></td><td><input type="text" id="city" value={buyerdetails[0].city} onChange={(e)=>setbuyerdetails(buyerdetails.map((list,index)=>({...list,city:e.target.value})))}/></td></tr>
-            <tr><td><lable> State </lable></td><td><input type="text" id="state" value={buyerdetails[0].state} onChange={(e)=>setbuyerdetails(buyerdetails.map((list,index)=>({...list,state:e.target.value})))}/></td>
-            <td><lable>Zip Code</lable></td><td><input type="text" id="zipcode" value={buyerdetails[0].zipcode} onChange={(e)=>setbuyerdetails(buyerdetails.map((list,index)=>({...list,zipcode:e.target.value})))}/></td></tr>
+            <tr><td><lable> Address Line 1 <span class="redstar">*</span></lable></td><td><input type="text" id="bad1" disabled={checkvalue} value={buyerdetails[0]?.address_Line1} onChange={(e)=>setbuyerdetails(buyerdetails.map((list,index)=>({...list,address_Line1:e.target.value})))}/></td>
+            <td><lable> Address Line 2 <span class="redstar">*</span></lable></td><td><input type="text" id="bad2" disabled={checkvalue} value={buyerdetails[0]?.address_Line2} onChange={(e)=>setbuyerdetails(buyerdetails.map((list,index)=>({...list,address_Line2:e.target.value})))}/></td></tr>
+            <tr><td><lable> Address Line 3</lable></td><td> <input type="text" id="ad3" value={buyerdetails[0]?.address_Line3} disabled={checkvalue} onChange={(e)=>setbuyerdetails(buyerdetails.map((list,index)=>({...list,address_Line3:e.target.value})))}/></td>
+            <td><lable> City <span class="redstar">*</span></lable></td><td><input type="text" id="bcity" value={buyerdetails[0]?.city} disabled={checkvalue} onChange={(e)=>setbuyerdetails(buyerdetails.map((list,index)=>({...list,city:e.target.value})))}/></td></tr>
+            <tr><td><lable> State <span class="redstar">*</span></lable></td><td><input type="text" id="bstate" value={buyerdetails[0]?.state} disabled={checkvalue} onChange={(e)=>setbuyerdetails(buyerdetails.map((list,index)=>({...list,state:e.target.value})))}/></td>
+            <td><lable>Zip Code <span class="redstar">*</span></lable></td><td><input type="text" id="bzipcode" value={buyerdetails[0]?.zipcode} disabled={checkvalue} onChange={(e)=>setbuyerdetails(buyerdetails.map((list,index)=>({...list,zipcode:e.target.value})))}/></td></tr>
             </table>     
-    
-            <p><b>Billing Products</b></p> <hr style={{position:"relative" ,top:"-25px",width:"68.5vh",marginTop:0,marginLeft:"18.5vh"}}/>
+            </div>
+            <div style={{padding:"15px",borderRadius:"10px", backgroundColor:"transparent",boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",marginTop:"30px"}}>
+            <p><b>Billing Products</b></p> <hr style={{position:"relative" ,top:"-25px",width:"68.5vh",marginTop:0,marginLeft:"19.5vh"}}/>
             <table style={{width:"100%"}}>
             {d.map((list,index)=>(
-            <div style={{marginBottom:"20px",width:"100%",padding:"0"}}>
-                <tr key={index}>
-                <td style={{width:"20%"}}><lable>Product </lable></td><td style={{width:"35%"}}><input type="text" value={list?.name}  name="name" id={"product__name"+index} onChange={(e)=>{ProductName(e,index)} }/></td>
-                <td style={{width:"25%"}}><lable>HSN/SAC </lable></td><td style={{width:"35%"}}>
-                <select name="HSN/SAC" style={{width:"100%" ,border:"2px solid grey", height:"30px", borderRadius:"5px" }} id={"hsn"+index} value={list?.hsn} onChange={(e)=>ListHsn(e,index)}>
+            <div style={{padding:"15px",borderRadius:"10px", backgroundColor:"transparent",boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",marginBottom:"20px"}}>
+              <button  class="redborder" id={index} onClick={(e)=>RemoveList(e)}>X</button>
+               <tr key={index}>
+                <td style={{width:"20%"}}><lable>Product <span class="redstar">*</span></lable></td><td style={{width:"35%"}}><input type="text" value={list?.name}  name="name" id={"product__name"+index} onChange={(e)=>{HandleChange(e,index)} }/></td>
+                <td style={{width:"25%"}}><lable>HSN/SAC <span class="redstar">*</span></lable></td><td style={{width:"35%"}}>
+                <select name="hsn" style={{width:"100%" ,border:"2px solid grey", height:"30px", borderRadius:"5px" }} id={"hsn"+index} value={list?.hsn} onChange={(e)=>HandleChange(e,index)}>
                     <option value="8202">8202</option>
                     <option value="8205">8205</option>
                 </select>
                 </td>
                 </tr>
                 <tr>
-                <td><lable>Quantity</lable></td><td><input name="Quantity" type="number" min="0"  onChange={(e)=>ListQuantity(e,index) } id={"quantity"+index} value={list?.quantity}/></td>
-                <td><lable>Rate</lable></td><td><input name="Rate" type="text"  onChange={(e)=>ListRate(e,index) } id={"rate"+index} value={list?.rate} /></td>
+                <td><lable>Quantity <span class="redstar">*</span></lable></td><td><input name="quantity" type="number" min="0"  onChange={(e)=>HandleChange(e,index) } id={"quantity"+index} value={list?.quantity}/></td>
+                <td><lable>Rate <span class="redstar">*</span></lable></td><td><input name="rate" type="text"  onChange={(e)=>HandleChange(e,index) } id={"rate"+index} value={list?.rate} /></td>
                 </tr>
                 </div>
             )
             )
             }
             </table>
-            <button style={{marginLeft:"50vh" ,marginTop:"5%", border:"1px solid grey", borderRadius:"5px",width:"5vh",height:"5vh", background:"white" ,color:"grey",fontSize:"30px"}} target="_self" onClick={(e)=>(AddListCount(e))}>+</button>
+            <button class="addbutton" target="_self" onClick={(e)=>(AddListCount(e))}>+</button>
+            </div>
+            <div style={{padding:"15px",borderRadius:"10px", backgroundColor:"transparent",boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",marginTop:"30px"}}>            
+            <p><b>Other Details</b></p> <hr style={{position:"relative" ,top:"-25px",width:"68.5vh",marginTop:0,marginLeft:"16.5vh"}}/>
+            <table style={{width:"100%",padding:"0px",marginTop:"0px"}}>
+                <tr>
+                    <td style={{width:"20%",padding:0,margin:0}}><label>Invoice No <span class="redstar">*</span></label></td>
+                    <td style={{width:"35%",padding:0,margin:0}}><input type="text" value={otherdeatils[0].invoice_no} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,invoice_no:e.target.value})))}/></td>
+                    <td style={{width:"25%",padding:0,margin:0}}><label>Invoice Date <span class="redstar">*</span></label></td>
+                    <td style={{width:"35%",paddingRight:"10px",padding:0,margin:0}}><input type="date" style={{width:"100%" ,border:"2px solid grey", height:"30px", borderRadius:"5px" }} value={otherdeatils[0].invoice_date} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,invoice_date:e.target.value})))} /></td>
+                    
+                </tr>
+                
+                <tr>
+                    <td style={{width:"20%"}}><label>Challan No <span class="redstar">*</span></label></td>
+                    <td style={{width:"35%"}}><input type="text" value={otherdeatils[0].challan_no} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,challan_no:e.target.value})))} /></td>
+                    <td style={{width:"25%"}}><label>Challan Date <span class="redstar">*</span></label></td>
+                    <td style={{width:"35%",paddingRight:"10px"}}><input type="date" style={{width:"100%" ,border:"2px solid grey", height:"30px", borderRadius:"5px" }} value={otherdeatils[0].challan_date} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,challan_date:e.target.value})))}/></td>
+                </tr>
+
+                <tr>
+                    <td style={{width:"20%"}}><label>P.O.No</label></td>
+                    <td style={{width:"35%"}}><input type="text" value={otherdeatils[0].p_o_no} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,p_o_no:e.target.value})))} /></td>
+                    <td style={{width:"25%"}}><label>Delivery Date</label></td>
+                    <td style={{width:"35%",paddingRight:"10px"}}><input type="date" style={{width:"100%" ,border:"2px solid grey", height:"30px", borderRadius:"5px" }} value={otherdeatils[0].delivery_date} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,delivery_date:e.target.value})))}/></td>
+                </tr>
+
+                <tr>
+                    <td style={{width:"20%"}}><label>Reverse Charages <span class="redstar">*</span></label></td>
+                    <td style={{width:"35%",paddingRight:"25px"}}><select style={{width:"100%" ,border:"2px solid grey", height:"30px", borderRadius:"5px"}} value={otherdeatils[0].reverse_charges} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,reverse_charges:e.target.value})))}>
+                        <option disabled selected>Select</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                        </select></td>
+                    <td style={{width:"25%"}}><label>L.R.No</label></td>
+                    <td style={{width:"35%"}}><input type="text" value={otherdeatils[0].l_r_no} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,l_r_no:e.target.value})))}/></td>
+                </tr>
+
+                <tr>
+                    <td style={{width:"20%"}}><label>Due Date</label></td>
+                    <td style={{width:"35%",paddingRight:"25px"}}><input type="date" style={{width:"100%" ,border:"2px solid grey", height:"30px", borderRadius:"5px" }} value={otherdeatils[0].due_date} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,due_date:e.target.value})))} /></td>
+                    <td style={{width:"25%"}}><label>E-Way No</label></td>
+                    <td style={{width:"35%"}}><input type="text" value={otherdeatils[0].e_way_no} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,e_way_no:e.target.value})))}/></td>
+                    
+                </tr>
+            </table>
+            </div>
+            <div style={{padding:"15px",borderRadius:"10px", backgroundColor:"transparent",boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",marginTop:"30px"}}>
+            <p><b>Bank Details</b></p> <hr style={{position:"relative" ,top:"-25px",width:"68.5vh",marginTop:0,marginLeft:"15.5vh"}}/>
+            <table style={{width:"100%",padding:"0px"}}>
+                <tr>
+                    <td style={{padding:0,margin:0}}><lable>Bank Name <span class="redstar">*</span></lable></td>
+                    <td style={{padding:0,margin:0}}><input type="text" value={bankdeatils[0].bank_name} onChange={e=>setbankdetails(prelist=>prelist.map((list,index)=>({...list,bank_name:e.target.value})))}/></td>
+                    <td style={{padding:0,margin:0}}>Branch Name <span class="redstar">*</span></td>
+                    <td style={{padding:0,margin:0}}><input type="text" value={bankdeatils[0].branch_name} onChange={e=>setbankdetails(prelist=>prelist.map((list,index)=>({...list,branch_name:e.target.value})))}/></td>
+                </tr>
+
+                <tr>
+                    <td><lable>Account Number <span class="redstar">*</span></lable></td>
+                    <td><input type="text" value={bankdeatils[0].account_number} onChange={e=>setbankdetails(prelist=>prelist.map((list,index)=>({...list,account_number:e.target.value})))}/></td>
+                    <td>IFSC Code <span class="redstar">*</span></td>
+                    <td><input type="text" value={bankdeatils[0].ifsc_code} onChange={e=>setbankdetails(prelist=>prelist.map((list,index)=>({...list,ifsc_code:e.target.value})))} /></td>
+                </tr>
+            </table>
+            </div>
+            <div style={{padding:"15px",borderRadius:"10px", backgroundColor:"transparent",boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",marginTop:"30px"}}>
+            <p><b>Signature</b></p> <hr style={{position:"relative" ,top:"-25px",width:"68.5vh",marginTop:0,marginLeft:"12vh"}}/>
+            <input type="file" accept='.jpg' style={{border:0,marginLeft:"40%",marginTop:"15px"}} id="signature" onChange={(e)=>setsignature(URL.createObjectURL(e.target.files[0]))}></input>
+            </div>
+
+            <div style={{padding:"15px",borderRadius:"10px", backgroundColor:"transparent",boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",marginTop:"30px"}}>
+            <p><b>Teams & Conditions</b></p> <hr style={{position:"relative" ,top:"-25px",width:"68.5vh",marginTop:0,marginLeft:"21vh"}}/>
+            {terms.map((list,index)=>(
+                <>
+                <input key={index} id={index} type="text" value={list?.text} onChange={(event)=>{setterms(prelist=>prelist.map((list,index)=>index==event.target.id?{...list,text:event.target.value}:list))}} style={{width:"85%",margin:0,marginLeft:"20px",padding:0,marginBottom:"10px",paddingLeft:"10px",paddingRight:"26px"}} /><button id={index} class="crossbutton" onClick={(event)=>{event.preventDefault();setterms(prelist=>prelist.filter((list,index)=>index!=event.target.id))}}>X</button>
+                </>
+            ))
+            } 
+            <button class="AddButton" onClick={(e)=>{e.preventDefault();setterms(prelist=>[...prelist,{}])}}>Add</button> 
+            <p id="ida"></p>          
+            </div>
         </form>
         </div>
-    {/* ------------------------------Form Section------------------------------------------ */}
+    
+        {/* ------------------------------Form Section------------------------------------------ */}
         
         </>
     

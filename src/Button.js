@@ -7,7 +7,7 @@ const Button=(props)=>{
         <>
         <button className={props.s} onClick={props.clickHandle}>
             <figure>
-            <img src={props.img}></img>
+                <img src={props.img}></img>
                 <figcaption><a onClick={props.clickHandle}>{props.lable}</a></figcaption>
             </figure>
         </button>
