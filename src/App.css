@@ -30,6 +30,13 @@ input{
   border: 2px solid grey;
   border-radius: 5px;
 }
+
+input:hover{
+  border: 2px solid skyblue;
+}
+
+
+
 td{
   padding-top: 30px;
 }
@@ -134,3 +141,29 @@ select{
   color:white;
   font-weight:bolder;
 }
+.htable{
+  color: black;
+}
+.htable:hover{
+  color: red;
+  border: 2px solid skyblue;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.gtable{
+  color:black;
+}
+.gtable:hover{
+  color:green;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+@media print{
+  button{
+    display: none;
+  }
+}
+
+@

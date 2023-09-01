@@ -1,6 +1,8 @@
 import {useEffect, useState} from 'react';
+import ReactDOM  from 'react-dom/client';
 import './App.css'
 import PreviewSection from './PreviewSection';
+import PP from './PrintPreview';
 const GST_Inside_the_State=()=>{
       const [d,setd]=useState([{quantity:null,rate:null}]);
       const [sellerdetails,setsellerdetails]=useState([{company_name:"",address_Line1:"",address_Line2:"",address_Line3:"",city:"",state:"",zipcode:""}]);
@@ -11,6 +13,7 @@ const GST_Inside_the_State=()=>{
       const [bankdeatils,setbankdetails]=useState([{}]);
       const [signature,setsignature]=useState(null);
       const [terms,setterms]=useState([{}]);
+      const hsncode_percentage=[{hsncode:8205,rate:18},{hsncode:8202,rate:12}];
       const HandleChange=(e,size)=>{
         setd(()=>d.map((list,index)=>(index===size?{...list,id:size+1,[e.target.name]:e.target.value}:list)));
     };
@@ -59,11 +62,18 @@ const GST_Inside_the_State=()=>{
         }
     }
 
+    const PrintPreview=()=>{
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<PP d={d} sellerdetails={sellerdetails} buyerdetails={buyerdetails} shipingdetails={shipingdetails} otherdeatils={otherdeatils} bankdeatils={bankdeatils} signature={signature} terms={terms} hsncode_percentage={hsncode_percentage} />);
+    }
+
       return(
         <>
-        <PreviewSection d={d} sellerdetails={sellerdetails} buyerdetails={buyerdetails} shipingdetails={shipingdetails} otherdeatils={otherdeatils} bankdeatils={bankdeatils} signature={signature} terms={terms}/>
-   
-   
+        <div style={{width:"49%", height:"100vh",position:"fixed",left:"0",top:0,overflowY: "auto"}} class="preview">
+        <div style={{marginTop:"20px",marginBottom:"20px",border:"2px solid black"}}>
+        <PreviewSection d={d} sellerdetails={sellerdetails} buyerdetails={buyerdetails} shipingdetails={shipingdetails} otherdeatils={otherdeatils} bankdeatils={bankdeatils} signature={signature} terms={terms} hsncode_percentage={hsncode_percentage} />
+        </div>
+        </div>
     {/* ----------------------------------Preview Section------------------------------------- */}
     
     <p id="idid"></p>
@@ -71,7 +81,7 @@ const GST_Inside_the_State=()=>{
         <form style={{padding:"20px"}}>
             <div style={{padding:"15px",borderRadius:"10px", backgroundColor:"transparent",boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)"}}>
             <p><b>Seller</b></p> <hr style={{position:"relative" ,top:"-25px",width:"80vh",marginTop:0,marginLeft:"7vh"}}/>
-            <lable>Company Name   <span class="redstar">*</span>  </lable><input id="scm"  value={sellerdetails[0]?.company_name} onChange={(e)=>setsellerdetails(sellerdetails.map((list,index)=>({...list,company_name:e.target.value})))} />
+            <lable>Company Name   <span class="redstar">*</span>  </lable><input id="scm" value={sellerdetails[0]?.company_name} onChange={(e)=>setsellerdetails(sellerdetails.map((list,index)=>({...list,company_name:e.target.value})))} />
             <table style={{width:"100%",padding:"0px"}}>
             <tr><td><lable> Address Line 1 <span class="redstar">*</span></lable></td><td><input type="text" id="sad1" value={sellerdetails[0]?.address_Line1} onChange={(e)=>setsellerdetails(sellerdetails.map((list,index)=>({...list,address_Line1:e.target.value})))}/></td>
             <td><lable> Address Line 2 <span class="redstar">*</span></lable></td><td><input type="text" id="sad2" value={sellerdetails[0]?.address_Line2} onChange={(e)=>setsellerdetails(sellerdetails.map((list,index)=>({...list,address_Line2:e.target.value})))}/></td></tr>
@@ -116,8 +126,15 @@ const GST_Inside_the_State=()=>{
                 <td style={{width:"20%"}}><lable>Product <span class="redstar">*</span></lable></td><td style={{width:"35%"}}><input type="text" value={list?.name}  name="name" id={"product__name"+index} onChange={(e)=>{HandleChange(e,index)} }/></td>
                 <td style={{width:"25%"}}><lable>HSN/SAC <span class="redstar">*</span></lable></td><td style={{width:"35%"}}>
                 <select name="hsn" style={{width:"100%" ,border:"2px solid grey", height:"30px", borderRadius:"5px" }} id={"hsn"+index} value={list?.hsn} onChange={(e)=>HandleChange(e,index)}>
-                    <option value="8202">8202</option>
-                    <option value="8205">8205</option>
+                    <option selected disabled>Select</option>
+                    {hsncode_percentage.map((list,index)=>(
+                        <>
+                        <option value={list.hsncode}>{list.hsncode}</option>
+                        </>
+
+                    )
+                    )
+                    }
                 </select>
                 </td>
                 </tr>
@@ -208,10 +225,10 @@ const GST_Inside_the_State=()=>{
                 </>
             ))
             } 
-            <button class="AddButton" onClick={(e)=>{e.preventDefault();setterms(prelist=>[...prelist,{}])}}>Add</button> 
-            <p id="ida"></p>          
+            <button class="AddButton" onClick={(e)=>{e.preventDefault();setterms(prelist=>[...prelist,{}])}}>Add</button>          
             </div>
         </form>
+        <button style={{marginLeft:"44%",height:"auto",marginBottom:"30px",backgroundColor:"DodgerBlue",border:"2px solid DodgerBlue",fontSize:"20px",fontFamily:"cursive",color:"white",padding:"5px",borderRadius:"20px"}} onClick={PrintPreview}>Preview</button>
         </div>
     
         {/* ------------------------------Form Section------------------------------------------ */}
