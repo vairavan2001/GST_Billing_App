@@ -179,5 +179,56 @@ select{
   top: 0;
   width: 100%;
   height: 20%;
-  border: 2px solid red;
+  box-shadow: 2px 2px 4px 2px rgb(0, 0,0,0.5);
+  background-color:rgb(230,230,250);
+}
+
+.home_section{
+  position:absolute;
+  top:20%;
+  height: 70%;
+  margin-top:2px;
+  width: 100%;
+  background-color:rgb(255,228,196);
+}
+
+.home_footer{
+  position: absolute;
+  top:90%;
+  margin-top: 2px;
+  height: 10%;
+  width: 100%;
+  box-shadow: 2px 2px 2px 4px rgb(0, 0,0,0.5);
+  background-color:rgb(230,230,250);
+}
+
+.home_button{
+  font-Family:Lato;
+  font-Size:35px;
+  padding:10px;
+  background-Color:white;
+  border:2px solid black;
+  border-Radius:30px;
+  margin-Left:45%
+}
+
+.home_button:hover{
+  background: linear-gradient(to right,rgb(101, 101, 101),rgb(0, 0, 0));
+  color:white;
+  border: none;
+}
+
+.header_heading{
+  font-Family:garamond;
+  position:absolute;
+  top:30%;
+  left:10%;
+}
+
+.form_page1{
+  width: 50%;
+  padding: 2%;
+  border: 2px solid black;
+  margin-left:25%;
+  margin-top: 10%;
 }
