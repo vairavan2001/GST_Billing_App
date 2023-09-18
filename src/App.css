@@ -85,7 +85,6 @@ select{
 }
 
 .addbutton{
-  margin-left:50%; 
   margin-Top:5%;
   border:2px solid rgb(3, 178, 247);
   border-radius:50px;
@@ -109,6 +108,7 @@ select{
 
 .preview{
   font-family: Garamond;
+  font-size: 15px;
 }
 
 .crossbutton{
@@ -128,7 +128,6 @@ select{
 
 .AddButton{
   margin-top:20px;
-  margin-left:50%;
   height:30px;
   width:50px;
   background-color:white;
@@ -202,6 +201,8 @@ select{
   background-color:rgb(230,230,250);
 }
 
+
+
 .home_button{
   font-Family:Lato;
   font-Size:35px;
@@ -231,4 +232,32 @@ select{
   border: 2px solid black;
   margin-left:25%;
   margin-top: 10%;
+  }
+  .form_page1_input select{
+    width: 100%;
+    font-size: 20px; 
+    border: none;
+    border-bottom: 2px solid grey;
+    outline: none;
+  }
+  .form_page1_input{
+    width: 76%;
+    padding: 1% 0%;
+    margin-top: -5.5%;
+    margin-left: 22%;
+  }
+
+  .form_page1_lable{
+    width:20%;
+    margin-left: 1%;
+    padding: 1% 0%;
+    font-size:20px;
+    margin-top: .5%;
+  }
+
+::-webkit-scrollbar-track{
+  background-color: skyblue;
+}
+::-webkit-scrollbar-thumb{
+  background-color:whitesmoke;
 }
