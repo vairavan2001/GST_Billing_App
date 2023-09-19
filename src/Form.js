@@ -104,7 +104,7 @@ const Form=(props)=>{
            <tr key={index}>
             <td style={{width:"20%"}}><lable>Product <span class="redstar">*</span></lable></td><td style={{width:"35%"}}><input type="text" value={list?.name}  name="name" id={"product__name"+index} onChange={(e)=>{HandleChange(e,index)} } required/></td>
             <td style={{width:"25%"}}><lable>HSN/SAC <span class="redstar">*</span></lable></td><td style={{width:"35%"}}>
-            <select name="hsn" style={{width:"100%" ,border:"2px solid grey", height:"30px", borderRadius:"5px" }} id={"hsn"+index} value={list?.hsn} onChange={(e)=>HandleChange(e,index)} required>
+            <select name="hsn" style={{width:"100%" , height:"30px", borderRadius:"5px" }} id={"hsn"+index} value={list?.hsn} onChange={(e)=>HandleChange(e,index)} required>
                 <option selected disabled>Select</option>
                 {hsncode_percentage.map((list,index)=>(
                     <>
@@ -137,7 +137,7 @@ const Form=(props)=>{
                 <td style={{width:"20%",padding:0,margin:0}}><label>Invoice No <span class="redstar">*</span></label></td>
                 <td style={{width:"35%",padding:0,margin:0}}><input type="text" value={otherdeatils[0].invoice_no} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,invoice_no:e.target.value})))} required/></td>
                 <td style={{width:"25%",padding:0,margin:0}}><label>Invoice Date <span class="redstar">*</span></label></td>
-                <td style={{width:"35%",paddingRight:"10px",padding:0,margin:0}}><input type="date" style={{width:"100%" ,border:"2px solid grey", height:"30px", borderRadius:"5px" }} value={otherdeatils[0].invoice_date} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,invoice_date:e.target.value})))} required /></td>
+                <td style={{width:"35%",paddingRight:"10px"}}><input type="date" style={{width:"100%" , height:"30px", borderRadius:"5px" }} value={otherdeatils[0].invoice_date} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,invoice_date:e.target.value})))} required /></td>
                 
             </tr>
             
@@ -145,19 +145,19 @@ const Form=(props)=>{
                 <td style={{width:"20%"}}><label>Challan No <span class="redstar">*</span></label></td>
                 <td style={{width:"35%"}}><input type="text" value={otherdeatils[0].challan_no} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,challan_no:e.target.value})))} required /></td>
                 <td style={{width:"25%"}}><label>Challan Date <span class="redstar">*</span></label></td>
-                <td style={{width:"35%",paddingRight:"10px"}}><input type="date" style={{width:"100%" ,border:"2px solid grey", height:"30px", borderRadius:"5px" }} value={otherdeatils[0].challan_date} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,challan_date:e.target.value})))} required/></td>
+                <td style={{width:"35%",paddingRight:"10px"}}><input type="date" style={{width:"100%" , height:"30px", borderRadius:"5px" }} value={otherdeatils[0].challan_date} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,challan_date:e.target.value})))} required/></td>
             </tr>
 
             <tr>
                 <td style={{width:"20%"}}><label>P.O.No</label></td>
                 <td style={{width:"35%"}}><input type="text" value={otherdeatils[0].p_o_no} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,p_o_no:e.target.value})))} /></td>
                 <td style={{width:"25%"}}><label>Delivery Date</label></td>
-                <td style={{width:"35%",paddingRight:"10px"}}><input type="date" style={{width:"100%" ,border:"2px solid grey", height:"30px", borderRadius:"5px" }} value={otherdeatils[0].delivery_date} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,delivery_date:e.target.value})))}/></td>
+                <td style={{width:"35%",paddingRight:"10px"}}><input type="date" style={{width:"100%" , height:"30px", borderRadius:"5px" }} value={otherdeatils[0].delivery_date} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,delivery_date:e.target.value})))}/></td>
             </tr>
 
             <tr>
-                <td style={{width:"20%"}}><label>Reverse Charages <span class="redstar">*</span></label></td>
-                <td style={{width:"35%",paddingRight:"25px"}}><select style={{width:"100%" ,border:"2px solid grey", height:"30px", borderRadius:"5px"}} value={otherdeatils[0].reverse_charges} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,reverse_charges:e.target.value})))} required >
+                <td style={{width:"20%"}}><label>Reverse Charages<span class="redstar">*</span></label></td>
+                <td style={{width:"35%",paddingRight:"25px"}}><select style={{width:"100%" , height:"30px", borderRadius:"5px"}} value={otherdeatils[0].reverse_charges} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,reverse_charges:e.target.value})))} required >
                     <option disabled selected>Select</option>
                     <option>Yes</option>
                     <option>No</option>
@@ -167,10 +167,7 @@ const Form=(props)=>{
             </tr>
 
             <tr>
-                <td style={{width:"20%"}}><label>Due Date</label></td>
-                <td style={{width:"35%",paddingRight:"25px"}}><input type="date" style={{width:"100%" ,border:"2px solid grey", height:"30px", borderRadius:"5px" }} value={otherdeatils[0].due_date} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,due_date:e.target.value})))} /></td>
-                <td style={{width:"25%"}}><label>E-Way No</label></td>
-                <td style={{width:"35%"}}><input type="text" value={otherdeatils[0].e_way_no} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,e_way_no:e.target.value})))}/></td>
+                <td style={{width:"25%"}}><label>Due Date</label></td><td style={{width:"25%"}}> <input type="date" style={{width:"100%" , height:"30px", borderRadius:"5px"}}value={otherdeatils[0].due_date} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,due_date:e.target.value})))} /></td>
                 
             </tr>
         </table>

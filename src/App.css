@@ -31,8 +31,9 @@ input{
   border-radius: 5px;
 }
 
-input:hover{
-  border: 2px solid skyblue;
+input:focus{
+  border:none;
+  outline:2px solid skyblue;
 }
 
 
@@ -53,6 +54,12 @@ figcaption{
 }
 select{
   background-color: white;
+  border: 2px solid grey;
+}
+
+select:focus{
+  border:2px solid white;
+  outline:2px solid skyblue;
 }
 
 .redstar{
@@ -229,9 +236,11 @@ select{
 .form_page1{
   width: 50%;
   padding: 2%;
-  border: 2px solid black;
+  box-shadow:2px 2px 2px 2px rgb(0,0,0,1);
+  border-radius: 15px;
   margin-left:25%;
   margin-top: 10%;
+  background-color: white;
   }
   .form_page1_input select{
     width: 100%;

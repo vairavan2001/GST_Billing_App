@@ -47,7 +47,7 @@ const PreviewSection=(props)=>{
 return(
     <div>
               <h4 style={{textAlign:"center",fontWeight:"bold"}}>Tax Invoice</h4>
-              <table style={{border:"1px solid black",width:"50%",borderCollapse:"collapse"}}>
+              <table style={{border:"1px solid black",width:"40%",borderCollapse:"collapse"}}>
               <tr>
               <td style={{padding:"15px 5px", lineHeight:"2px",borderBottom:"1px solid black"}}>
               <h3 id="company_name">{sellerdetails[0]?.company_name}</h3>
@@ -78,44 +78,44 @@ return(
                   </td>
               </tr>
               </table>
-              <table style={{float:"right",position:"absolute",top:"85px",right:"0",marginRight:"8px",border:"1px solid black",width:"48.5%",borderCollapse:"collapse"}}>
+              <table style={{float:"right",position:"absolute",top:"85px",right:"0",marginRight:"8px",border:"1px solid black",width:"55%",borderCollapse:"collapse"}}>
                 <tr>
-                    <td style={{borderBottom:"1px solid black",borderRight:"1px solid black",width:"12%",padding:"5px 2px"}}>Invoice No</td>
+                    <td style={{borderBottom:"1px solid black",borderRight:"1px solid black",width:"25%",padding:"5px 2px"}}>Invoice No</td>
                     <td style={{borderBottom:"1px solid black",borderRight:"1px solid black",padding:"5px 2px"}}><b>{otherdeatils[0]?.invoice_no}</b></td>
-                    <td style={{borderBottom:"1px solid black",borderRight:"1px solid black",width:"12%",padding:"5px 2px"}}>Invoice Date</td>
+                    <td style={{borderBottom:"1px solid black",borderRight:"1px solid black",width:"25%",padding:"5px 2px"}}>Invoice Date</td>
                     <td style={{borderBottom:"1px solid black",padding:"5px 2px"}}><b>{otherdeatils[0]?.invoice_date}</b></td>
                 </tr>
 
                 <tr>
-                    <td style={{borderBottom:"1px solid black",borderRight:"1px solid black",width:"12%",padding:"5px 2px"}}>Challan No</td>
+                    <td style={{borderBottom:"1px solid black",borderRight:"1px solid black",width:"25%",padding:"5px 2px"}}>Challan No</td>
                     <td style={{borderBottom:"1px solid black",borderRight:"1px solid black",padding:"5px 2px"}}>{otherdeatils[0]?.challan_no}</td>
-                    <td style={{borderBottom:"1px solid black",width:"12%",padding:"5px 2px",borderRight:"1px solid black"}}>Challan Date</td>
+                    <td style={{borderBottom:"1px solid black",width:"25%",padding:"5px 2px",borderRight:"1px solid black"}}>Challan Date</td>
                     <td style={{borderBottom:"1px solid black",padding:"5px 2px"}}>{otherdeatils[0]?.challan_date}</td>
                 </tr>
 
                 <tr>
-                    <td style={{borderBottom:"1px solid black",borderRight:"1px solid black",width:"12%",padding:"5px 2px"}}>P.O.No</td>
+                    <td style={{borderBottom:"1px solid black",borderRight:"1px solid black",width:"25%",padding:"5px 2px"}}>P.O.No</td>
                     <td style={{borderBottom:"1px solid black",borderRight:"1px solid black",padding:"5px  2px"}}>{otherdeatils[0]?.p_o_no}</td>
-                    <td style={{borderBottom:"1px solid black",width:"12%",padding:"5px 2px",borderRight:"1px solid black"}}>Delivery Date</td>
+                    <td style={{borderBottom:"1px solid black",width:"25%",padding:"5px 2px",borderRight:"1px solid black"}}>Delivery Date</td>
                     <td style={{borderBottom:"1px solid black",padding:"5px 2px"}}>{otherdeatils[0]?.delivery_date}</td>
                 </tr>
 
                 <tr>
-                    <td style={{borderBottom:"1px solid black",borderRight:"1px solid black",width:"12%",padding:"5px 2px"}}>Reverse Charges</td>
+                    <td style={{borderBottom:"1px solid black",borderRight:"1px solid black",width:"25%",padding:"5px 2px"}}>Reverse Charges</td>
                     <td style={{borderBottom:"1px solid black",borderRight:"1px solid black",padding:"5px 2px"}}>{otherdeatils[0]?.reverse_charges}</td>
-                    <td style={{borderBottom:"1px solid black",width:"12%",padding:"5px 2px",borderRight:"1px solid black"}}>L.R.NO</td>
+                    <td style={{borderBottom:"1px solid black",width:"25%",padding:"5px 2px",borderRight:"1px solid black"}}>L.R.NO</td>
                     <td style={{borderBottom:"1px solid black",padding:"5px 2px"}}>{otherdeatils[0]?.l_r_no}</td>
                 </tr>
 
                 <tr>
-                    <td style={{borderBottom:"1px solid black",borderRight:"1px solid black",width:"12%",padding:"5px 2px"}}>Due Date</td>
+                    <td style={{borderBottom:"1px solid black",borderRight:"1px solid black",width:"25%",padding:"5px 2px"}}>Due Date</td>
                     <td style={{borderBottom:"1px solid black",borderRight:"1px solid black",padding:"5px 2px"}}>{otherdeatils[0]?.due_date}</td>
-                    <td style={{borderBottom:"1px solid black",width:"12%",padding:"5px 2px",borderRight:"1px solid black"}}>E-Way No</td>
+                    <td style={{borderBottom:"1px solid black",width:"25%",padding:"5px 2px",borderRight:"1px solid black"}}>E-Way No</td>
                     <td style={{borderBottom:"1px solid black",padding:"5px 2px"}}>{otherdeatils[0]?.e_way_no}</td>
                 </tr>
 
               </table>
-              <table style={{borderCollapse: "collapse",border:"1px solid black",width:"100%",marginTop:"80px"}}>
+              <table style={{borderCollapse: "collapse",border:"1px solid black",width:"100%",marginTop:"20px"}}>
                   <thead>
                   <tr style={{height:"50px"}}>
                       <th style={{border:"1px solid black",width:"2%"}}>SI No.</th>
@@ -165,7 +165,7 @@ return(
                 </tr>
               </tbody>
               </table>
-              <div style={{width:"100%",padding:"5px",margin:0,height:"60px"}}>
+              <div style={{width:"100%",padding:"5px",margin:0,height:"45px"}}>
               
               </div>
               <table style={{width:"100%", borderCollapse:'collapse', border:"1px solid black" }}>

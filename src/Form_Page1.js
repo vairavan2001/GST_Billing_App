@@ -17,6 +17,7 @@ const NextButton=()=>{
     }
     
 return(
+    <div style={{width:"100%",height:"100vh",position:"absolute",top:"0",backgroundColor:"skyblue"}}>
     <div className='form_page1'>
         <p id="message" style={{color:"red",textAlign:"center",fontWeight:"bold",width:"100%"}}></p>
         <div style={{width:"100%",padding:0,margin:0,marginBottom:"10px"}}>
@@ -53,6 +54,7 @@ return(
         <div style={{textAlign:"center"}}>
             <button style={{height:"auto",marginBottom:"10px",backgroundColor:"DodgerBlue",border:"2px solid DodgerBlue",fontSize:"20px",fontFamily:"cursive",color:"white",padding:"10px",borderRadius:"25px",marginTop:"15px"}} onClick={()=>NextButton()}>Next</button>
         </div>
+    </div>
     </div>
 )
 }

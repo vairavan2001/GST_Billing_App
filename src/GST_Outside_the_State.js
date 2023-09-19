@@ -10,7 +10,7 @@ const GST_Outside_the_State=(props)=>{
       <div style={{backgroundColor:"skyblue",width:"100%",minHeight:"100vh"}}>
 
       <div style={{width:"50%", height:"100vh",position:"fixed",left:"0",top:0,overflowY: "auto",overflowX:"hidden",margin:0}} class="preview">
-      <div style={{border:"2px solid black",padding:"2px",backgroundColor:"white",borderRadius:"10px",margin:"20px 5px"}}>
+      <div style={{boxShadow:"2px 2px 2px 2px rgb(0,0,0,1)",padding:"2px",backgroundColor:"white",borderRadius:"10px",margin:"20px 5px"}}>
       <PreviewSection d={d} sellerdetails={sellerdetails} buyerdetails={buyerdetails} shipingdetails={shipingdetails} otherdeatils={otherdeatils} bankdeatils={bankdeatils} signature={signature} terms={terms} hsncode_percentage={hsncode_percentage} />
       </div>
       </div>
@@ -20,7 +20,7 @@ const GST_Outside_the_State=(props)=>{
   
       {/* ------------------------------Form Section------------------------------------------ */}
        <div style={{width:"50%" ,height:"100vh",position:"fixed",right:"0",top:0, overflowY:"auto",margin:0}} class="form">
-    <div style={{border:"2px solid black",backgroundColor:"white",borderRadius:"10px",margin:"20px 5px"}}>
+    <div style={{boxShadow:"2px 2px 2px 2px rgb(0,0,0,1)",backgroundColor:"white",borderRadius:"10px",margin:"20px 5px"}}>
       <Form d={d} setd={setd} sellerdetails={sellerdetails} setsellerdetails={setsellerdetails} shipingdetails={shipingdetails} setshipingdetails={setshipingdetails} buyerdetails={buyerdetails} setbuyerdetails={setbuyerdetails} checkvalue={checkvalue} setcheckvalue={setcheckvalue} otherdeatils={otherdeatils} setotherdetails={setotherdetails} bankdeatils={bankdeatils} setbankdetails={setbankdetails} signature={signature} setsignature={setsignature} terms={terms} setterms={setterms} hsncode_percentage={hsncode_percentage}/>
      </div>
      </div>
