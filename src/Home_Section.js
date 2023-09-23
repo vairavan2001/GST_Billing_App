@@ -5,7 +5,7 @@ const Home_Section=()=>{
 return(
 <div className="home_section">
 <h1 style={{fontFamily:"Lato", color:"rgb(160,82,45)",marginTop:"15%",marginLeft:"25%",fontWeight:"lighter",fontSize:"45px"}}>" Effortless GST Invoicing, Every Time "</h1>
-<button className='home_button' onClick={(e)=>{e.preventDefault();navigate('/form_page1')}}>Try Now</button>
+<button className='home_button' onClick={(e)=>{e.preventDefault();navigate('/login')}}>Try Now</button>
 </div>
 )
 }

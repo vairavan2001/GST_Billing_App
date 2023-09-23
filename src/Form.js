@@ -11,6 +11,8 @@ const Form=(props)=>{
       e.preventDefault();
       setd([...d,{quantity:null,rate:null}]);
     }
+
+    
     
     useEffect(()=>{
         const arr=[...d]
@@ -157,7 +159,7 @@ const Form=(props)=>{
 
             <tr>
                 <td style={{width:"20%"}}><label>Reverse Charages<span class="redstar">*</span></label></td>
-                <td style={{width:"35%",paddingRight:"25px"}}><select style={{width:"100%" , height:"30px", borderRadius:"5px"}} value={otherdeatils[0].reverse_charges} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,reverse_charges:e.target.value})))} required >
+                <td style={{width:"35%"}}><select style={{width:"72%",height:"30px", borderRadius:"5px"}} value={otherdeatils[0].reverse_charges} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,reverse_charges:e.target.value})))} required >
                     <option disabled selected>Select</option>
                     <option>Yes</option>
                     <option>No</option>
@@ -167,8 +169,10 @@ const Form=(props)=>{
             </tr>
 
             <tr>
-                <td style={{width:"25%"}}><label>Due Date</label></td><td style={{width:"25%"}}> <input type="date" style={{width:"100%" , height:"30px", borderRadius:"5px"}}value={otherdeatils[0].due_date} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,due_date:e.target.value})))} /></td>
-                
+                <td style={{width:"25%"}}><label>Due Date</label></td>
+                <td style={{width:"25%"}}> <input type="date" style={{width:"72%" , height:"30px", borderRadius:"5px"}}value={otherdeatils[0].due_date} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,due_date:e.target.value})))} /></td>
+                <td style={{width:"25%"}}><label>E-WAY No</label></td>
+                <td style={{width:"35%"}}><input type="text" value={otherdeatils[0].e_way_no} onChange={(e)=>setotherdetails(prelist=>prelist.map((list,index)=>({...list,e_way_no:e.target.value})))}/></td>
             </tr>
         </table>
         </div>
@@ -192,7 +196,7 @@ const Form=(props)=>{
         </div>
         <div style={{padding:"15px",borderRadius:"10px", backgroundColor:"transparent",boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",marginTop:"30px"}}>
         <p><b>Signature</b></p> <hr style={{position:"relative" ,top:"-25px",width:"77%",marginTop:0,marginLeft:"10vh"}}/>
-        <input type="file" accept='.jpg' style={{border:0,marginLeft:"40%",marginTop:"15px"}} id="signature" onChange={(e)=>setsignature(URL.createObjectURL(e.target.files[0]))}></input>
+        <input type="file" accept='.jpg'  style={{border:0,marginLeft:"40%",marginTop:"15px"}} id="signature" onChange={(e)=>{e.target.files.length>0?setsignature(URL.createObjectURL(e.target.files[0])):setsignature(null)}}></input>
         </div>
 
         <div style={{padding:"15px",borderRadius:"10px", backgroundColor:"transparent",boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",marginTop:"30px"}}>
