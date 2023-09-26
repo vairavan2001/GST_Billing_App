@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
-import './App.css'
-const PreviewSection=(props)=>{
+import { useState,useEffect } from "react";
+const Preview_Section_1=(props)=>{
     const{sellerdetails,d,buyerdetails,shipingdetails,otherdeatils,bankdeatils,signature,terms,hsncode_percentage}=props;
 
     const[quantitycount,setquantitycount]=useState(0);
@@ -140,19 +139,11 @@ return(
               ))}
                 <tr>
                     <td style={{borderRight:"1px solid black"}}></td>
-                    <td style={{borderRight:"1px solid black",textAlign:"right",paddingRight:"5px"}}><b>CGST</b></td>
+                    <td style={{borderRight:"1px solid black",textAlign:"right",paddingRight:"5px"}}><b>IGST</b></td>
                     <td style={{borderRight:"1px solid black"}}></td>
                     <td style={{borderRight:"1px solid black"}}></td>
                     <td style={{borderRight:"1px solid black"}}></td>
-                    <td style={{borderRight:"1px solid black",textAlign:"right",paddingRight:"5px"}}className='gtable'><b>{parseFloat(totalamount*((gstpercentage/2)/100)).toFixed(2)}</b></td>
-                </tr>
-                <tr>
-                    <td style={{borderRight:"1px solid black"}}></td>
-                    <td style={{borderRight:"1px solid black",textAlign:"right",paddingRight:"5px"}}><b>SGST</b></td>
-                    <td style={{borderRight:"1px solid black"}}></td>
-                    <td style={{borderRight:"1px solid black"}}></td>
-                    <td style={{borderRight:"1px solid black"}}></td>
-                    <td style={{borderRight:"1px solid black",textAlign:"right",paddingRight:"5px"}} className='gtable'><b>{parseFloat(totalamount*((gstpercentage/2)/100)).toFixed(2)}</b></td>
+                    <td style={{borderRight:"1px solid black",textAlign:"right",paddingRight:"5px"}}className='gtable'><b>{parseFloat(totalamount*((gstpercentage)/100)).toFixed(2)}</b></td>
                 </tr>
                 
                 <tr>
@@ -173,11 +164,7 @@ return(
                     <tr>
                     <th style={{border:"1px solid black"}}>HSN/SAC</th>
                     <th style={{border:"1px solid black"}}>Taxable Value</th>
-                    <th style={{border:"1px solid black",padding:"0",width:"25%"}}>Central Tax
-                        <div style={{borderTop:"1px solid black",width:"40%",borderRight:"1px solid black",height:"25px",marginTop:"19px" }}>Rate</div>
-                        <div style={{borderTop:"1px solid black",width:"60%",marginBottom:0,height:"25px",float:"right",marginTop:"-26px"}}>Amount</div>
-                    </th>
-                    <th style={{border:"1px solid black",padding:"0" ,width:"25%"}}>State Tax
+                    <th style={{border:"1px solid black",padding:"0",width:"35%"}}>Integrated Tax
                         <div style={{borderTop:"1px solid black",width:"40%",borderRight:"1px solid black",height:"25px",marginTop:"19px" }}>Rate</div>
                         <div style={{borderTop:"1px solid black",width:"60%",marginBottom:0,height:"25px",float:"right",marginTop:"-26px"}}>Amount</div>
                     </th>
@@ -191,14 +178,8 @@ return(
                                 <td style={{textAlign:"right",paddingRight:"5px",borderRight:"1px solid black"}}>{(list.quantity * list.rate)}</td>
                                 <td style={{padding:0,margin:0,height:"50px"}}>
                                 <div style={{borderRight:"1px solid black",height:"50px",margin:0,padding:0}}>
-                                <div style={{width:"40%",borderRight:"1px solid black",height:"100%",textAlign:"right",margin:0,paddingRight:"0.5px"}}><span style={{position:"relative",top:"30px",marginRight:"5px"}}>{hsncode_percentage.map((l,i)=>(l.hsncode==list.hsn?l.rate/2+"%":null))}</span></div>
-                                <div style={{width:"60%",float:"right",marginTop:"-50px",height:"100%",textAlign:"right"}}><span style={{position:"relative",top:"30px",marginRight:"5px"}}>{hsncode_percentage.map((l,i)=>(l.hsncode==list.hsn?((list.quantity * list.rate)*((l.rate/2)/100)).toFixed(2):null))}</span></div>
-                                </div>
-                                </td>
-                                <td style={{padding:0,margin:0,height:"50px"}}>
-                                <div style={{borderRight:"1px solid black",height:"50px",margin:0,padding:0}}>
-                                <div style={{width:"40%",borderRight:"1px solid black",height:"100%",textAlign:"right",margin:0,padding:0}}><span style={{position:"relative",top:"30px",marginRight:"5px"}}>{hsncode_percentage.map((l,i)=>(l.hsncode==list.hsn?l.rate/2+"%":null))}</span></div>
-                                <div style={{width:"60%",float:"right",marginTop:"-50px",height:"100%",textAlign:"right"}}><span style={{position:"relative",top:"30px",marginRight:"5px"}}>{hsncode_percentage.map((l,i)=>(l.hsncode==list.hsn?((list.quantity * list.rate)*((l.rate/2)/100)).toFixed(2):null))}</span></div>
+                                <div style={{width:"40%",borderRight:"1px solid black",height:"100%",textAlign:"right",margin:0,paddingRight:"0px"}}><span style={{position:"relative",top:"30px",marginRight:"5px"}}>{hsncode_percentage.map((l,i)=>(l.hsncode==list.hsn?l.rate+"%":null))}</span></div>
+                                <div style={{width:"60%",float:"right",marginTop:"-50px",height:"100%",textAlign:"right"}}><span style={{position:"relative",top:"30px",marginRight:"5px"}}>{hsncode_percentage.map((l,i)=>(l.hsncode==list.hsn?((list.quantity * list.rate)*((l.rate)/100)).toFixed(2):null))}</span></div>
                                 </div>
                                 </td>
                                 <td style={{textAlign:"right",paddingRight:"5px"}}>{hsncode_percentage.map((l,i)=>(l.hsncode==list.hsn?((list.quantity*list.rate)+(list.quantity*list.rate)*(l.rate/100)):null))}</td>
@@ -212,13 +193,7 @@ return(
                         <td style={{padding:0,height:"50px",borderTop:"1px solid black"}}>
                             <div style={{height:"50px",margin:0,padding:0}}>
                             <div style={{width:"40%",borderRight:"1px solid black",height:"100%"}}></div>
-                            <div style={{width:"60%",float:"right",marginTop:"-50px",height:"100%",textAlign:"right",borderRight:"1px solid black"}} className='gtable'><span style={{position:"relative",top:"30px",marginRight:"5px"}}><b>{parseFloat(totalamount*((gstpercentage/2)/100)).toFixed(2)}</b></span></div>
-                            </div>
-                        </td>
-                        <td style={{padding:0,margin:0,height:"50px",borderTop:"1px solid black"}}>
-                            <div style={{height:"50px",margin:0,padding:0}}>
-                            <div style={{width:"40%",borderRight:"1px solid black",height:"100%",textAlign:"right",margin:0,padding:0}}></div>
-                            <div style={{width:"60%",float:"right",marginTop:"-50px",height:"100%",textAlign:"right"}} className='gtable'><span style={{position:"relative",top:"30px",marginRight:"5px"}}><b>{parseFloat(totalamount*((gstpercentage/2)/100)).toFixed(2)}</b></span></div>
+                            <div style={{width:"60%",float:"right",marginTop:"-50px",height:"100%",textAlign:"right"}} className='gtable'><span style={{position:"relative",top:"30px",marginRight:"5px"}}><b>{parseFloat(totalamount*((gstpercentage)/100)).toFixed(2)}</b></span></div>
                             </div>
                         </td>
                         <td style={{border:"1px solid black",textAlign:"right", paddingRight:"5px"}} className='gtable'><b>{(totalamount+parseFloat((totalamount*((gstpercentage)/100)).toFixed(2))).toFixed(2)}</b></td>
@@ -277,4 +252,4 @@ return(
     </div>
 )
 }
-export default PreviewSection;
+export default Preview_Section_1;
