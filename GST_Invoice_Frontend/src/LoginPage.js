@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 const LoginPage=()=>{
     const [value,setvalue]=useState('Login');
     const [logincolor,setlogincolor]=useState('linear-gradient(to right,#7EB1EC,#346EB0)')

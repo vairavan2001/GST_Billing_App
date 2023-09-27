@@ -15,5 +15,4 @@ public class LoginCredencials {
     public void setPassword(String password) {
         this.password = password;
     }
-    
 }
